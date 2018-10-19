@@ -50,17 +50,9 @@ else
 fi
 echo "     Using --- $coin"
 
-git clone https://github.com/xmrig/xmrig.git
-cd xmrig
-git checkout v$VERSION
-sed -i -e 's/constexpr const int kMinimumDonateLevel = 1;/constexpr const int kMinimumDonateLevel = 0;/g' src/donate.h
-mkdir build
-cd build
-cmake ..
-make -j$(nproc)
 #./xmrig -o $xmrpool:$startport -u $username -p $email -t $numthreads
 echo -o $xmrpool:$startport -u $username -p $password -t $numthreads --donate-level=$donate $OPTIONS
-./xmrig -o $xmrpool:$startport \
+xmrig -o $xmrpool:$startport \
   -u $username \
   -p $password \
   -t $numthreads \
