@@ -23,7 +23,7 @@ RUN cd /tmp && \
 
 FROM ghcr.io/rblaine95/alpine:edge
 
-COPY --from=build /tmp/xmrig/xmrig /usr/local/bin/xmrig
+COPY --from=build /tmp/xmrig/build/xmrig /usr/local/bin/xmrig
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
 
 ENTRYPOINT ["xmrig.sh"]
