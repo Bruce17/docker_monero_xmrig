@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request' && steps.prep.outputs.current_branch == 'main'
+        if: github.event_name != 'pull_request' && steps.prep.outputs.current_branch == 'master'
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
@@ -75,7 +75,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
-          push: ${{ github.event_name != 'pull_request' && steps.prep.outputs.current_branch == 'main' }}
+          push: ${{ github.event_name != 'pull_request' && steps.prep.outputs.current_branch == 'master' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
