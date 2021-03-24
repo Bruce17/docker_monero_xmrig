@@ -1,26 +1,19 @@
-FROM ubuntu AS build
+# Ubuntu focal = 20.04
+FROM ubuntu:focal AS build
 
 ARG VERSION
-ENV VERSION ${VERSION:-v6.10.0}
+ENV VERSION ${VERSION:-6.10.0}
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+RUN apt install -y curl && \
+    mkdir /tmp/xmrig && \
+    cd /tmp/xmrig && \
+    curl -o xmrig.tar.gz "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
+    tar -xzf xmrig.tar.gz && \
+    ls -ahl /tmp/xmrig
 
-RUN cd /tmp && \
-    git clone https://github.com/xmrig/xmrig.git && \
-    cd xmrig && \
-    git checkout $VERSION && \
-    sed -i -e 's/constexpr const int kMinimumDonateLevel = 1;/constexpr const int  kMinimumDonateLevel = 0;/g' src/donate.h && \
-    mkdir build && cd build
-RUN cd /tmp/xmrig/build && \
-    cmake ..
-RUN cd /tmp/xmrig/build && \
-    make -j$(nproc)
+FROM ubuntu:focal
 
-FROM ubuntu
-
-COPY --from=build /tmp/xmrig/build/xmrig /usr/local/bin/xmrig
+COPY --from=build /tmp/xmrig/xmrig /usr/local/bin/xmrig
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
 
 ENTRYPOINT ["xmrig.sh"]
