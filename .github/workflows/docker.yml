@@ -48,7 +48,8 @@ jobs:
         uses: docker/setup-qemu-action@master
         with:
           # platforms: all
-          platforms: amd64,arm,arm64
+          # platforms: amd64,arm,arm64
+          platforms: arm64
 
       - name: Available platforms
         run: echo ${{ steps.qemu.outputs.platforms }}
@@ -78,7 +79,8 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+          # platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+          platforms: linux/arm64
           push: ${{ github.event_name != 'pull_request' && steps.prep.outputs.current_branch == 'master' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
