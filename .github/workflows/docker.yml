@@ -43,6 +43,7 @@ jobs:
           images: ${{ secrets.DOCKER_HUB_REPOSITORY }}
           tag-semver: |
             {{major}}.{{minor}}.{{patch}}
+          tag-sha: true
 
       - name: Set up QEMU
         id: qemu
