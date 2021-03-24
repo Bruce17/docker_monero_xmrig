@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      BUILD_VERSION: dev
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
