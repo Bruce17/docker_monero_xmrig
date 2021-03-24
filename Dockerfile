@@ -4,7 +4,9 @@ FROM ubuntu:focal AS build
 ARG VERSION
 ENV VERSION ${VERSION:-6.10.0}
 
-RUN apt install -y curl && \
+RUN apt update &&\
+    apt upgrade -y && \
+    apt install -y curl && \
     mkdir /tmp/xmrig && \
     cd /tmp/xmrig && \
     curl -o xmrig.tar.gz "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
