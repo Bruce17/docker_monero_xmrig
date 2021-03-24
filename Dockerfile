@@ -1,11 +1,11 @@
-FROM ghcr.io/rblaine95/alpine:edge AS build
+FROM ubuntu AS build
 
 ARG VERSION
 ENV VERSION ${VERSION:-v6.10.0}
 
-RUN apk --no-cache --update upgrade && \
-    apk --no-cache --update add git make cmake libstdc++ gcc g++ libuv-dev openssl-dev hwloc-dev && \
-    rm -rf /var/cache/apk/
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 
 RUN cd /tmp && \
     git clone https://github.com/xmrig/xmrig.git && \
@@ -18,7 +18,7 @@ RUN cd /tmp/xmrig/build && \
 RUN cd /tmp/xmrig/build && \
     make -j$(nproc)
 
-FROM ghcr.io/rblaine95/alpine:edge
+FROM ubuntu
 
 COPY --from=build /tmp/xmrig/build/xmrig /usr/local/bin/xmrig
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
