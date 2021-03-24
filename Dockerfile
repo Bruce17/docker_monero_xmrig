@@ -4,11 +4,7 @@ ARG VERSION
 ENV VERSION ${VERSION:-6.10.0}
 
 RUN apk --no-cache --update upgrade && \
-    apk --no-cache --update add git make g++ cmake coreutils build-base \
-        libuv-dev libmicrohttpd-dev openssl-dev \
-        hwloc-dev && \
-        # there is no NUMA support for ARM 32 bit
-        # numactl && \
+    apk --no-cache --update git make cmake libstdc++ gcc g++ libuv-dev openssl-dev hwloc-dev && \
     rm -rf /var/cache/apk/
 
 RUN cd /tmp && \
