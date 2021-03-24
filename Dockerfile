@@ -13,8 +13,10 @@ RUN cd /tmp && \
     git checkout $VERSION && \
     sed -i -e 's/constexpr const int kMinimumDonateLevel = 1;/constexpr const int  kMinimumDonateLevel = 0;/g' src/donate.h && \
     mkdir build && cd build
-RUN cmake ..
-RUN make -j$(nproc)
+RUN cd /tmp/xmrig/build && \
+    cmake ..
+RUN cd /tmp/xmrig/build && \
+    make -j$(nproc)
 
 FROM ghcr.io/rblaine95/alpine:edge
 
