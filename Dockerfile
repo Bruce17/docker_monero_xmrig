@@ -9,13 +9,13 @@ RUN apt update && \
     apt install -y curl
 RUN mkdir /tmp/xmrig && \
     cd /tmp/xmrig && \
-    curl -o xmrig.tar.gz "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
+    curl -o xmrig.tar.gz -L "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
     tar -xf xmrig.tar.gz && \
     ls -ahl /tmp/xmrig
 
 FROM ubuntu:focal
 
-COPY --from=build /tmp/xmrig/xmrig /usr/local/bin/xmrig
+COPY --from=build /tmp/xmrig/xmrig-${VERSION}/xmrig /usr/local/bin/xmrig
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
 
 ENTRYPOINT ["xmrig.sh"]
