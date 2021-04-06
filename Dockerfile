@@ -11,7 +11,10 @@ RUN mkdir /tmp/xmrig && \
     cd /tmp/xmrig && \
     curl -o xmrig.tar.gz -L "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
     tar -xf xmrig.tar.gz && \
-    ls -ahl /tmp/xmrig
+    echo "ls -ahl /tmp/xmrig" && \
+    ls -ahl /tmp/xmrig && \
+    echo "ls -ahl /tmp/xmrig/xmrig-*" && \
+    ls -ahl /tmp/xmrig/xmrig-*
 
 FROM ubuntu:focal
 
