@@ -11,11 +11,18 @@ RUN mkdir /tmp/xmrig && \
     cd /tmp/xmrig && \
     curl -o xmrig.tar.gz -L "https://github.com/xmrig/xmrig/releases/download/v${VERSION}/xmrig-${VERSION}-focal-x64.tar.gz" && \
     tar -xf xmrig.tar.gz && \
-    ls -ahl /tmp/xmrig
+    echo "ls -ahl /tmp/xmrig" && \
+    ls -ahl /tmp/xmrig && \
+    echo "ls -ahl /tmp/xmrig/xmrig-*" && \
+    ls -ahl /tmp/xmrig/xmrig-*
 
 FROM ubuntu:focal
 
+# Copy main executable
 COPY --from=build /tmp/xmrig/xmrig-*/xmrig /usr/local/bin/xmrig
+# Copy config file
+COPY --from=build /tmp/xmrig/xmrig-*/config.json /usr/local/bin/config.json
+
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
 
 ENTRYPOINT ["xmrig.sh"]
