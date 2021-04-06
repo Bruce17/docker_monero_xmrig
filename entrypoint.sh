@@ -50,7 +50,9 @@ else
 fi
 echo "     Using --- $coin"
 
-echo -o $xmrpool:$startport -u $username -p $password -t $numthreads --donate-level=$donate $OPTIONS
+echo "xmrig command arguments:"
+echo "-o $xmrpool:$startport -u $username -p $password -t $numthreads --donate-level=$donate $OPTIONS"
+
 /usr/local/bin/xmrig -o $xmrpool:$startport \
   -u $username \
   -p $password \
