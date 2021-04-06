@@ -1,15 +1,10 @@
 ### Monero XMRig Docker
 
-[![GitHub Workflow Status (branch)][github-actions-badge]][github-actions-link] 
-[![GitHub release](https://img.shields.io/github/release/xmrig/xmrig/all.svg)](https://github.com/xmrig/xmrig/releases) 
-[![GitHub Release Date](https://img.shields.io/github/release-date-pre/xmrig/xmrig.svg)](https://github.com/xmrig/xmrig/releases)
+[![dockerbuild](https://github.com/Bruce17/docker_monero_xmrig/actions/workflows/docker.yml/badge.svg)](https://github.com/Bruce17/docker_monero_xmrig/actions/workflows/docker.yml)
 
-Because `servethehome/monero_xmrig` is very outdated.
+Because `servethehome/monero_xmrig` is outdated. The benefit of this docker image is that xmrig is pre built inside the docker container and thus will start faster.
 
-XMRig Version: `6.10.0`
-
-If a new version for XMRig comes out and you want me to update this docker, feel free to open an issue or do a pull request.  
-I will try to update this docker as quickly as possible.
+For a new xmrig just update the env `BUILD_VERSION` in the `.github/workflows/docker.yml` and file a new pull request.
 
 ### Usage
 * `$username` - pool username
@@ -29,7 +24,7 @@ docker run -ti --rm \
   -e donate=$donate \
   -e coin=$coin \
   -e VERSION=$VERSION \
-  ghcr.io/rblaine95/monero_xmrig
+  hansdampf17/monero_xmrig:master
 ```
 
 ### Variable Defaults
@@ -40,6 +35,3 @@ docker run -ti --rm \
 * `$donate` - `5`
 * `$coin` - `monero`
 * `$VERSION` - Current XMRig version listed above
-
-[github-actions-badge]: https://img.shields.io/github/workflow/status/rblaine95/docker_monero_xmrig/dockerbuild/master "Github Workflow Status (master)"
-[github-actions-link]: https://github.com/rblaine95/docker_monero_xmrig/actions?query=workflow%3Adockerbuild
