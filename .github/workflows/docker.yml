@@ -10,7 +10,7 @@ jobs:
 
     env:
       # BUILD_VERSION: dev
-      BUILD_VERSION: 6.10.0
+      BUILD_VERSION: 6.11.0
 
     steps:
       - name: Checkout
