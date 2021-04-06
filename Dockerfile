@@ -18,7 +18,11 @@ RUN mkdir /tmp/xmrig && \
 
 FROM ubuntu:focal
 
+# Copy main executable
 COPY --from=build /tmp/xmrig/xmrig-*/xmrig /usr/local/bin/xmrig
+# Copy config file
+COPY --from=build /tmp/xmrig/xmrig-*/config.json /usr/local/bin/config.json
+
 COPY entrypoint.sh /usr/local/bin/xmrig.sh
 
 ENTRYPOINT ["xmrig.sh"]
